@@ -60,8 +60,8 @@ sudo rm /var/cache/apt/archives/lock
 sudo dpkg --add-architecture i386
 
 ## Adicionando Keys ##
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys ACCAF35C ## Insync
-wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add - ## typora
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys ACCAF35C ## Insync. Not sure, review ##
+wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add - ## typora ##
 
 
 ## Criando pastas ##
