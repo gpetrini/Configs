@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # ----------------------------- VARIÁVEIS ----------------------------- #
 
 PPA_ATOM="ppa:webupd8team/atom"
@@ -14,25 +15,39 @@ URL_FRANZ="https://github.com/meetfranz/franz/releases/download/v5.4.0/franz_5.4
 URL_INSYNC="https://d2t3ff60b2tol4.cloudfront.net/builds/insync_3.0.23.40579-bionic_amd64.deb" ## Not shure, review ##
 URL_PCLOUD="https://www.pcloud.com/pt/how-to-install-pcloud-drive-linux.html?download=electron-64"
 URL_ZOTERO="https://github.com/retorquere/zotero-deb/releases/download/apt-get/install.sh"
+URL_LSD="https://github.com/marcov64/Lsd/archive/7.2-stable-2.tar.gz"
 
 DIRETORIO_DOWNLOADS="$HOME/$USER/Downloads/programas"
 
+LDS_FOLDER="/dados"
+LSD_FILE="Lsd-7.2-master.tar.gz"
+
 PROGRAMAS_PARA_INSTALAR=(
   atom
+  build-essential ## LSD pre-req
   caffeine
   chromium-browser
+  fish
   flameshot ## Screenshot
+  gdb ## LSD pre-req
   gdebi-core ## Pre-req RStudio
+  git 
   gnome-tweaks
+  gnuplot-qt ## LSD Pre-req
   ghostscript ## Pre-req ocrmypdf
   gretl
   insync
+  jump ## Connects with fish
   libexempi3 ## Pre-req ocrmypdf
   libffi6 ## Pre-req ocrmypdf
+  multitail ## LSD pre-req
+  ocrmypdf
+  pandoc
   pngquant ## Pre-req ocrmypdf
   qpdf ## Pre-req ocrmypdf
   r-base
   snapd
+  tcl8.6-dev ## LSD pre-req
   tesseract-ocr ## Pre-req ocrmypdf
   texstudio
   texlive-latex-recommended
@@ -43,10 +58,12 @@ PROGRAMAS_PARA_INSTALAR=(
   texlive-font-utils
   texlive-bibtex-extra
   texlive-lang-portuguese
+  tk8.6-dev ## LSD pre-req
   typora
   vivaldi-stable
   ubuntu-restricted-extras ## Codecs ##
   unpaper ## Pre-req ocrmypdf
+  zlib1g-dev ## LSD pre-req
   zotero
 )
 # ---------------------------------------------------------------------- #
@@ -62,6 +79,7 @@ sudo dpkg --add-architecture i386
 ## Adicionando Keys ##
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys ACCAF35C ## Insync. Not sure, review ##
 wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add - ## typora ##
+
 
 
 ## Criando pastas ##
@@ -83,15 +101,19 @@ sudo apt update -y
 
 ## Download e instalaçao de programas externos ##
 mkdir "$DIRETORIO_DOWNLOADS"
+wget -c "$URL_FRANZ"              -P "$DIRETORIO_DOWNLOADS"
+wget -c "$URL_LSD"		-P "$LSD_FOLDER" ## LSD will be installed at HD (not in SSD)
 wget -c "$URL_INSYNC"              -P "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_PCLOUD"              -P "$DIRETORIO_DOWNLOADS"
-wget -c "$URL_FRANZ"              -P "$DIRETORIO_DOWNLOADS"
 wget -qO- "$URL_ZOTERO"  -P "$DIRETORIO_DOWNLOADS" | sudo bash
 
 
 
 ## Instalando pacotes .deb baixados na sessão anterior ##
 sudo dpkg -i $DIRETORIO_DOWNLOADS/*.deb
+tar -xzf $LSD_FOLDER/*.tar.gz
+$LSD_FOLDER/add-shortcut-linux.sh
+
 sudo apt install -f
 
 # Instalar programas no apt
@@ -140,17 +162,29 @@ for pacote in ${PACOTES_PYTHON[@]}; do
 done
 
 
+
+# ----------------------------- GIT REPOS ----------------------------- # 
+cd /dados
+git clone https://github.com/gpetrini/Configuracoes.git
+git clone https://github.com/gpetrini/Dissertacao.git
+git clone https://github.com/gpetrini/Mestrado.git
+git clone https://github.com/gpetrini/Pessoal.git
+git clone https://github.com/gpetrini/PhD.git
+cd ~/ ## Changing to home
+# --------------------------------------------------------------------- #
+
+
 # ----------------------------- PÓS-INSTALAÇÃO ----------------------------- #
 ## Finalização, atualização e limpeza##
 sudo apt update && sudo apt dist-upgrade -y
-
 sudo apt autoclean
 sudo apt autoremove -y
-# ---------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
 
 PROGRAMAS_NAO_INSTALADOS=(
 	RStudio
 	InternetBanking
+	NottionWebApp
 )
 
 echo "Instalação automatizada encerrada"
