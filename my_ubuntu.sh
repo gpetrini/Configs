@@ -168,8 +168,10 @@ cd /dados
 git clone https://github.com/gpetrini/Configuracoes.git
 git clone https://github.com/gpetrini/Dissertacao.git
 git clone https://github.com/gpetrini/Mestrado.git
+git clone https://github.com/gpetrini/Pesquisas.git
 git clone https://github.com/gpetrini/Pessoal.git
 git clone https://github.com/gpetrini/PhD.git
+git clone https://github.com/gpetrini/pysolve3.git
 cd ~/ ## Changing to home
 # --------------------------------------------------------------------- #
 
