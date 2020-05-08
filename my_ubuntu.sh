@@ -17,9 +17,9 @@ URL_PCLOUD="https://www.pcloud.com/pt/how-to-install-pcloud-drive-linux.html?dow
 URL_ZOTERO="https://github.com/retorquere/zotero-deb/releases/download/apt-get/install.sh"
 URL_LSD="https://github.com/marcov64/Lsd/archive/7.2-stable-2.tar.gz"
 
-DIRETORIO_DOWNLOADS="$HOME/$USER/Downloads/programas"
+DIRETORIO_DOWNLOADS="$USER/Downloads"
 
-LDS_FOLDER="/dados"
+HDD_FOLDER="/dados"
 LSD_FILE="Lsd-7.2-master.tar.gz"
 
 PROGRAMAS_PARA_INSTALAR=(
@@ -43,6 +43,7 @@ PROGRAMAS_PARA_INSTALAR=(
   multitail ## LSD pre-req
   ocrmypdf
   pandoc
+  pip
   pngquant ## Pre-req ocrmypdf
   qpdf ## Pre-req ocrmypdf
   r-base
@@ -102,7 +103,7 @@ sudo apt update -y
 ## Download e instalaçao de programas externos ##
 mkdir "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_FRANZ"              -P "$DIRETORIO_DOWNLOADS"
-wget -c "$URL_LSD"		-P "$LSD_FOLDER" ## LSD will be installed at HD (not in SSD)
+wget -c "$URL_LSD"		-P "$HDD_FOLDER" ## LSD will be installed at HD (not in SSD)
 wget -c "$URL_INSYNC"              -P "$DIRETORIO_DOWNLOADS"
 wget -c "$URL_PCLOUD"              -P "$DIRETORIO_DOWNLOADS"
 wget -qO- "$URL_ZOTERO"  -P "$DIRETORIO_DOWNLOADS" | sudo bash
@@ -149,6 +150,7 @@ PACOTES_PYTHON=(
 	pysolve3
 	rpy2
 	scipy
+	scikit-fuzzy
 	seaborn
 	statsmodels
 	sympy
